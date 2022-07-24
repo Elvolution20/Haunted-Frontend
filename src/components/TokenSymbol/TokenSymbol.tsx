@@ -10,7 +10,7 @@ import hBondLogo from '../../assets/img/haunted_bond.png';
 import hauntedFtmLpLogo from '../../assets/img/haunted_cash.png';
 import hshareFtmLpLogo from '../../assets/img/haunted_share.png';
 
-import wftmLogo from '../../assets/img/ftm_logo_blue.svg';
+import wftmLogo from '../../assets/img/xdc_logo.jpg';
 
 
 const logosBySymbol: { [title: string]: string } = {
