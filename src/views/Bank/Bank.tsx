@@ -107,11 +107,11 @@ const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
   let pairName: string;
   let uniswapUrl: string;
   if (bank.depositTokenName.includes('HAUNTED')) {
-    pairName = 'HAUNTED-FTM pair';
-    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + hauntedAddr;
+    pairName = 'HAUNTED-XDC pair';
+    uniswapUrl = 'https://spookyswap.finance/add/XDC/' + hauntedAddr;
   } else {
-    pairName = 'HSHARE-FTM pair';
-    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + hshareAddr;
+    pairName = 'HSHARE-XDC pair';
+    uniswapUrl = 'https://spookyswap.finance/add/XDC/' + hshareAddr;
   }
   return (
     <Card>

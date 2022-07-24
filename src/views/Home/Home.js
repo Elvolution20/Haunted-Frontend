@@ -45,8 +45,8 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const TVL = useTotalValueLocked();
-  const hauntedFtmLpStats = useLpStats('HAUNTED-FTM-LP');
-  const hShareFtmLpStats = useLpStats('HSHARE-FTM-LP');
+  const hauntedFtmLpStats = useLpStats('HAUNTED-XDC-LP');
+  const hShareFtmLpStats = useLpStats('HSHARE-XDC-LP');
   const hauntedStats = useHauntedStats();
   const hShareStats = usehShareStats();
   const hBondStats = useBondStats();
@@ -71,7 +71,7 @@ const Home = () => {
     () => (hauntedStats ? Number(hauntedStats.priceInDollars).toFixed(2) : null),
     [hauntedStats],
   );
-  const hauntedPriceInFTM = useMemo(() => (hauntedStats ? Number(hauntedStats.tokenInFtm).toFixed(4) : null), [hauntedStats]);
+  const hauntedPriceInXDC = useMemo(() => (hauntedStats ? Number(hauntedStats.tokenInFtm).toFixed(4) : null), [hauntedStats]);
   const hauntedCirculatingSupply = useMemo(() => (hauntedStats ? String(hauntedStats.circulatingSupply) : null), [hauntedStats]);
   const hauntedTotalSupply = useMemo(() => (hauntedStats ? String(hauntedStats.totalSupply) : null), [hauntedStats]);
 
@@ -79,7 +79,7 @@ const Home = () => {
     () => (hShareStats ? Number(hShareStats.priceInDollars).toFixed(2) : null),
     [hShareStats],
   );
-  const hSharePriceInFTM = useMemo(
+  const hSharePriceInXDC = useMemo(
     () => (hShareStats ? Number(hShareStats.tokenInFtm).toFixed(4) : null),
     [hShareStats],
   );
@@ -93,15 +93,15 @@ const Home = () => {
     () => (hBondStats ? Number(hBondStats.priceInDollars).toFixed(2) : null),
     [hBondStats],
   );
-  const hBondPriceInFTM = useMemo(() => (hBondStats ? Number(hBondStats.tokenInFtm).toFixed(4) : null), [hBondStats]);
+  const hBondPriceInXDC = useMemo(() => (hBondStats ? Number(hBondStats.tokenInFtm).toFixed(4) : null), [hBondStats]);
   const hBondCirculatingSupply = useMemo(
     () => (hBondStats ? String(hBondStats.circulatingSupply) : null),
     [hBondStats],
   );
   const hBondTotalSupply = useMemo(() => (hBondStats ? String(hBondStats.totalSupply) : null), [hBondStats]);
 
-  const hauntedLpZap = useZap({ depositTokenName: 'HAUNTED-FTM-LP' });
-  const hshareLpZap = useZap({ depositTokenName: 'HSHARE-FTM-LP' });
+  const hauntedLpZap = useZap({ depositTokenName: 'HAUNTED-XDC-LP' });
+  const hshareLpZap = useZap({ depositTokenName: 'HSHARE-XDC-LP' });
 
   const StyledLink = styled.a`
     font-weight: 700;
@@ -116,7 +116,7 @@ const Home = () => {
         hauntedLpZap.onZap(zappingToken, tokenName, amount);
         onDissmissHauntedZap();
       }}
-      tokenName={'HAUNTED-FTM-LP'}
+      tokenName={'HAUNTED-XDC-LP'}
     />,
   );
 
@@ -128,7 +128,7 @@ const Home = () => {
         hshareLpZap.onZap(zappingToken, tokenName, amount);
         onDissmissHshareZap();
       }}
-      tokenName={'HSHARE-FTM-LP'}
+      tokenName={'HSHARE-XDC-LP'}
     />,
   );
 
@@ -221,7 +221,7 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{hauntedPriceInFTM ? hauntedPriceInFTM : '1'} XDC</span>
+                <span style={{ fontSize: '30px' }}>{hauntedPriceInXDC ? hauntedPriceInXDC : '1'} XDC</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px', alignContent: 'flex-start' }}>
@@ -260,7 +260,7 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{hSharePriceInFTM ? hSharePriceInFTM : '3333'} XDC</span>
+                <span style={{ fontSize: '30px' }}>{hSharePriceInXDC ? hSharePriceInXDC : '3333'} XDC</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px' }}>${hSharePriceInDollars ? hSharePriceInDollars : '100'}</span>
@@ -297,7 +297,7 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{hBondPriceInFTM ? hBondPriceInFTM : '1.1'} XDC</span>
+                <span style={{ fontSize: '30px' }}>{hBondPriceInXDC ? hBondPriceInXDC : '1.1'} XDC</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px' }}>${hBondPriceInDollars ? hBondPriceInDollars : '0.035'}</span>

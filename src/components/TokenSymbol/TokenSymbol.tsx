@@ -22,8 +22,8 @@ const logosBySymbol: { [title: string]: string } = {
   HSHARE: hShareLogo,
   HBOND: hBondLogo,
   WXDC: wxdcLogo,
-  'HAUNTED-FTM-LP': hauntedFtmLpLogo,
-  'HSHARE-FTM-LP': hshareFtmLpLogo,
+  'HAUNTED-XDC-LP': hauntedFtmLpLogo,
+  'HSHARE-XDC-LP': hshareFtmLpLogo,
 };
 
 type LogoProps = {

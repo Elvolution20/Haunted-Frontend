@@ -4,7 +4,7 @@ import { ChainId } from '@spookyswap/sdk';
 export type Configuration = {
   chainId: ChainId;
   networkName: string;
-  ftmscanUrl: string;
+  xdcscanUrl: string;
   defaultProvider: string;
   deployments: Deployments;
   externalTokens: { [contractName: string]: [string, number] };
