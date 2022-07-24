@@ -62,8 +62,8 @@ const Home = () => {
     hShare = hShareProd;
   }
 
-  const buyHauntedAddress = 'https://spookyswap.finance/swap?outputCurrency=' + haunted.address;
-  const buyHShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + hShare.address;
+  const buyHauntedAddress = 'https://exchange.xdcswaps.com/#/swap?outputCurrency=' + haunted.address;
+  const buyHShareAddress = 'https://exchange.xdcswaps.com/#/swap?outputCurrency=' + hShare.address;
 
   const hauntedLPStats = useMemo(() => (hauntedFtmLpStats ? hauntedFtmLpStats : null), [hauntedFtmLpStats]);
   const hshareLPStats = useMemo(() => (hShareFtmLpStats ? hShareFtmLpStats : null), [hShareFtmLpStats]);
@@ -146,9 +146,9 @@ const Home = () => {
           <Paper>
             <Box p={4}>
               <h2>Haunted Finance</h2>
-              <p>The first algorithmic stablecoin on Conflux, pegged to the price of 1 CFX via seigniorage.</p>
+              <p>The first algorithmic stablecoin on XinFin Network, pegged to the price of 1 XDC via seigniorage.</p>
               <p>
-                Stake your HAUNTED-CFX LP in the Farming to earn HSHARE rewards.
+                Stake your HAUNTED-XDC LP in the Farming to earn HSHARE rewards.
                 Then stake your earned HSHARE in the Staking to earn more HAUNTED!
               </p>
             </Box>
@@ -221,7 +221,7 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{hauntedPriceInFTM ? hauntedPriceInFTM : '-.----'} CFX</span>
+                <span style={{ fontSize: '30px' }}>{hauntedPriceInFTM ? hauntedPriceInFTM : '-.----'} XDC</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px', alignContent: 'flex-start' }}>
@@ -260,7 +260,7 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{hSharePriceInFTM ? hSharePriceInFTM : '-.----'} CFX</span>
+                <span style={{ fontSize: '30px' }}>{hSharePriceInFTM ? hSharePriceInFTM : '-.----'} XDC</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px' }}>${hSharePriceInDollars ? hSharePriceInDollars : '-.--'}</span>
@@ -297,7 +297,7 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{hBondPriceInFTM ? hBondPriceInFTM : '-.----'} CFX</span>
+                <span style={{ fontSize: '30px' }}>{hBondPriceInFTM ? hBondPriceInFTM : '-.----'} XDC</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px' }}>${hBondPriceInDollars ? hBondPriceInDollars : '-.--'}</span>

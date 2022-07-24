@@ -87,7 +87,7 @@ const ProvideLiquidity = () => {
       <Grid container justify="center">
         <Box style={{ width: '600px' }}>
           <Alert variant="filled" severity="warning" style={{ marginBottom: '10px' }}>
-            <b>This and <a href=""  rel="noopener noreferrer" target="_blank">Swappi-Dex</a> are the only ways to provide Liquidity on HAUNTED-CFX pair without paying tax.</b>
+            <b>This and <a href=""  rel="noopener noreferrer" target="_blank">XDCSwap</a> are the only ways to provide Liquidity on HAUNTED-XDC pair without paying tax.</b>
           </Alert>
           <Grid item xs={12} sm={12}>
             <Paper>
@@ -110,12 +110,12 @@ const ProvideLiquidity = () => {
                           onChange={handleFtmChange}
                           value={ftmAmount}
                           max={ftmBalance}
-                          symbol={'CFX'}
+                          symbol={'XDC'}
                         ></TokenInput>
                       </Grid>
                       <Grid item xs={12}>
-                        <p>1 HAUNTED = {hauntedPriceInFTM} CFX</p>
-                        <p>1 CFX = {ftmPriceInHAUNTED} HAUNTED</p>
+                        <p>1 HAUNTED = {hauntedPriceInFTM} XDC</p>
+                        <p>1 XDC = {ftmPriceInHAUNTED} HAUNTED</p>
                         <p>LP tokens ≈ {lpTokensAmount.toFixed(2)}</p>
                       </Grid>
                       <Grid xs={12} justifyContent="center" style={{ textAlign: 'center' }}>
