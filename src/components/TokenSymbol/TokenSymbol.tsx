@@ -10,7 +10,7 @@ import hBondLogo from '../../assets/img/haunted_bond.png';
 import hauntedFtmLpLogo from '../../assets/img/haunted_cash.png';
 import hshareFtmLpLogo from '../../assets/img/haunted_share.png';
 
-import wftmLogo from '../../assets/img/xdc_logo.jpg';
+import wxdcLogo from '../../assets/img/xdc_logo.jpg';
 
 
 const logosBySymbol: { [title: string]: string } = {
@@ -21,7 +21,7 @@ const logosBySymbol: { [title: string]: string } = {
   HSHAREPNG: hShareLogoPNG,
   HSHARE: hShareLogo,
   HBOND: hBondLogo,
-  WFTM: wftmLogo,
+  WXDC: wxdcLogo,
   'HAUNTED-FTM-LP': hauntedFtmLpLogo,
   'HSHARE-FTM-LP': hshareFtmLpLogo,
 };

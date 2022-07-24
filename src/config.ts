@@ -11,7 +11,7 @@ const configurations: { [env: string]: Configuration } = {
     defaultProvider: 'https://rpc.apothem.network',
     deployments: require('./haunted-finance/deployments/deployments.testing.json'),
     externalTokens: {
-      WFTM: ['0xf1277d1ed8ad466beddf92ef448a132661956621', 18],
+      WXDC: ['0xf1277d1ed8ad466beddf92ef448a132661956621', 18],
       'HAUNTED-FTM-LP': ['0x13Fe199F19c8F719652985488F150762A5E9c3A8', 18],
       'HSHARE-FTM-LP': ['0x20bc90bB41228cb9ab412036F80CE4Ef0cAf1BD5', 18],
     },
@@ -27,7 +27,7 @@ const configurations: { [env: string]: Configuration } = {
     defaultProvider: 'https://rpc.apothem.network',
     deployments: require('./haunted-finance/deployments/deployments.mainnet.json'),
     externalTokens: {
-      WFTM: ['0xf1277d1ed8ad466beddf92ef448a132661956621', 18],
+      WXDC: ['0xf1277d1ed8ad466beddf92ef448a132661956621', 18],
       'HAUNTED-FTM-LP': ['0x13Fe199F19c8F719652985488F150762A5E9c3A8', 18],
       'HSHARE-FTM-LP': ['0x20bc90bB41228cb9ab412036F80CE4Ef0cAf1BD5', 18],
     },
@@ -58,7 +58,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     poolId: 0,
     sectionInUI: 0,
     contract: 'HauntedFtmRewardPool',
-    depositTokenName: 'WFTM',
+    depositTokenName: 'WXDC',
     earnTokenName: 'HAUNTED',
     finished: false,
     sort: 1,

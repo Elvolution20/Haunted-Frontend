@@ -6983,7 +6983,7 @@
       },
       {
         "inputs": [],
-        "name": "wftm",
+        "name": "wxdc",
         "outputs": [
           {
             "internalType": "address",
@@ -7994,7 +7994,7 @@
           },
           {
             "internalType": "address",
-            "name": "_wftmAddress",
+            "name": "_wxdcAddress",
             "type": "address"
           },
           {
@@ -8334,7 +8334,7 @@
       },
       {
         "inputs": [],
-        "name": "wftmAddress",
+        "name": "wxdcAddress",
         "outputs": [
           {
             "internalType": "address",
