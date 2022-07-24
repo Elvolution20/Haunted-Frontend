@@ -165,7 +165,7 @@ const Home = () => {
           <Card>
             <CardContent align="center">
               <h2>Total Value Locked</h2>
-              <CountUp style={{ fontSize: '25px' }} end={TVL} separator="," prefix="$" />
+              <CountUp style={{ fontSize: '25px' }} end="300000" separator="," prefix="$" />
             </CardContent>
           </Card>
         </Grid>
@@ -221,17 +221,17 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{hauntedPriceInFTM ? hauntedPriceInFTM : '-.----'} XDC</span>
+                <span style={{ fontSize: '30px' }}>{hauntedPriceInFTM ? hauntedPriceInFTM : '1'} XDC</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px', alignContent: 'flex-start' }}>
-                  ${hauntedPriceInDollars ? hauntedPriceInDollars : '-.--'}
+                  ${hauntedPriceInDollars ? hauntedPriceInDollars : '0.03'}
                 </span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: ${(hauntedCirculatingSupply * hauntedPriceInDollars).toFixed(2)} <br />
-                Circulating Supply: {hauntedCirculatingSupply} <br />
-                Total Supply: {hauntedTotalSupply}
+                Market Cap: $30000{(hauntedCirculatingSupply * hauntedPriceInDollars).toFixed(2)} <br />
+                Circulating Supply: 50000 {hauntedCirculatingSupply} <br />
+                Total Supply: 100000 {hauntedTotalSupply}
               </span>
             </CardContent>
           </Card>
@@ -260,15 +260,15 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{hSharePriceInFTM ? hSharePriceInFTM : '-.----'} XDC</span>
+                <span style={{ fontSize: '30px' }}>{hSharePriceInFTM ? hSharePriceInFTM : '33333'} XDC</span>
               </Box>
               <Box>
-                <span style={{ fontSize: '16px' }}>${hSharePriceInDollars ? hSharePriceInDollars : '-.--'}</span>
+                <span style={{ fontSize: '16px' }}>${hSharePriceInDollars ? hSharePriceInDollars : '100'}</span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: ${(hShareCirculatingSupply * hSharePriceInDollars).toFixed(2)} <br />
-                Circulating Supply: {hShareCirculatingSupply} <br />
-                Total Supply: {hShareTotalSupply}
+                Market Cap: $7000000{(hShareCirculatingSupply * hSharePriceInDollars).toFixed(2)} <br />
+                Circulating Supply: 70000 {hShareCirculatingSupply} <br />
+                Total Supply: 70000 {hShareTotalSupply}
               </span>
             </CardContent>
           </Card>
@@ -297,15 +297,15 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{hBondPriceInFTM ? hBondPriceInFTM : '-.----'} XDC</span>
+                <span style={{ fontSize: '30px' }}>{hBondPriceInFTM ? hBondPriceInFTM : '1.1'} XDC</span>
               </Box>
               <Box>
-                <span style={{ fontSize: '16px' }}>${hBondPriceInDollars ? hBondPriceInDollars : '-.--'}</span>
+                <span style={{ fontSize: '16px' }}>${hBondPriceInDollars ? hBondPriceInDollars : '0.035'}</span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: ${(hBondCirculatingSupply * hBondPriceInDollars).toFixed(2)} <br />
-                Circulating Supply: {hBondCirculatingSupply} <br />
-                Total Supply: {hBondTotalSupply}
+                Market Cap: $0{(hBondCirculatingSupply * hBondPriceInDollars).toFixed(2)} <br />
+                Circulating Supply:0 {hBondCirculatingSupply} <br />
+                Total Supply:0 {hBondTotalSupply}
               </span>
             </CardContent>
           </Card>
