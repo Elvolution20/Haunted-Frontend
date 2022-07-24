@@ -4567,7 +4567,7 @@
       }
     ]
   },
-  "HauntedXdcRewardPool": {
+  "HauntedFtmRewardPool": {
     "address": "0x9A896d3c54D7e45B558BD5fFf26bF1E8C031F93b",
     "abi": [
       {
@@ -5053,7 +5053,7 @@
       }
     ]
   },
-  "HauntedXdcLpHauntedRewardPool": {
+  "HauntedFtmLpHauntedRewardPool": {
     "address": "0xa7b9123f4b15fE0fF01F469ff5Eab2b41296dC0E",
     "abi": [
       {
@@ -5544,7 +5544,7 @@
       }
     ]
   },
-  "HauntedXdcLPHShareRewardPool": {
+  "HauntedFtmLPHShareRewardPool": {
     "address": "0xcc0a87F7e7c693042a9Cc703661F5060c80ACb43",
     "abi": [
       {
@@ -6030,7 +6030,7 @@
       }
     ]
   },
-  "HshareXdcLPHShareRewardPool": {
+  "HshareFtmLPHShareRewardPool": {
     "address": "0xcc0a87F7e7c693042a9Cc703661F5060c80ACb43",
     "abi": [
       {
@@ -6571,7 +6571,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "amtXdcMin",
+            "name": "amtFtmMin",
             "type": "uint256"
           }
         ],
@@ -6983,7 +6983,7 @@
       },
       {
         "inputs": [],
-        "name": "wxdc",
+        "name": "wftm",
         "outputs": [
           {
             "internalType": "address",
@@ -7994,7 +7994,7 @@
           },
           {
             "internalType": "address",
-            "name": "_wxdcAddress",
+            "name": "_wftmAddress",
             "type": "address"
           },
           {
@@ -8334,7 +8334,7 @@
       },
       {
         "inputs": [],
-        "name": "wxdcAddress",
+        "name": "wftmAddress",
         "outputs": [
           {
             "internalType": "address",

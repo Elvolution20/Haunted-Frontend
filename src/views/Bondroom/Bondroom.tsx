@@ -55,7 +55,7 @@ const Bondroom: React.FC = () => {
     [hauntedFinance, addTransaction],
   );
   const isBondRedeemable = useMemo(() => cashPrice.gt(BOND_REDEEM_PRICE_BN), [cashPrice]);
-  const isBondPurchasable = useMemo(() => Number(bondStat?.tokenInXdc) < 1.01, [bondStat]);
+  const isBondPurchasable = useMemo(() => Number(bondStat?.tokenInFtm) < 1.01, [bondStat]);
 
   return (
     <Switch>
@@ -93,7 +93,7 @@ const Bondroom: React.FC = () => {
                 <ExchangeStat
                   tokenName="HBOND"
                   description="Current Price: (HAUNTED)^2"
-                  price={Number(bondStat?.tokenInXdc).toFixed(2) || '-'}
+                  price={Number(bondStat?.tokenInFtm).toFixed(2) || '-'}
                 />
               </StyledStatsWrapper>
               <StyledCardWrapper>
@@ -106,7 +106,7 @@ const Bondroom: React.FC = () => {
                   priceDesc={`${getDisplayBalance(bondBalance)} HBOND Available in wallet`}
                   onExchange={handleRedeemBonds}
                   disabled={!bondStat || bondBalance.eq(0) || !isBondRedeemable}
-                  disabledDescription={!isBondRedeemable ? `Enabled when HAUNTED > ${BOND_REDEEM_PRICE}XDC` : null}
+                  disabledDescription={!isBondRedeemable ? `Enabled when HAUNTED > ${BOND_REDEEM_PRICE}CFX` : null}
                 />
               </StyledCardWrapper>
             </StyledBond>

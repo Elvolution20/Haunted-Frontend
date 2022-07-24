@@ -15,7 +15,7 @@ import useTokenBalance from '../../../hooks/useTokenBalance';
 import useHauntedFinance from '../../../hooks/useHauntedFinance';
 import { useWallet } from 'use-wallet';
 import useApproveZapper, { ApprovalState } from '../../../hooks/useApproveZapper';
-import { HAUNTED_TICKER, HSHARE_TICKER, XDC_TICKER } from '../../../utils/constants';
+import { HAUNTED_TICKER, HSHARE_TICKER, FTM_TICKER } from '../../../utils/constants';
 import { Alert } from '@material-ui/lab';
 
 interface ZapProps extends ModalProps {
@@ -27,19 +27,19 @@ interface ZapProps extends ModalProps {
 const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', decimals = 18 }) => {
   const hauntedFinance = useHauntedFinance();
   const { balance } = useWallet();
-  const xdcBalance = (Number(balance) / 1e18).toFixed(4).toString();
+  const ftmBalance = (Number(balance) / 1e18).toFixed(4).toString();
   const hauntedBalance = useTokenBalance(hauntedFinance.HAUNTED);
   const hshareBalance = useTokenBalance(hauntedFinance.HSHARE);
   const [val, setVal] = useState('');
-  const [zappingToken, setZappingToken] = useState(XDC_TICKER);
-  const [zappingTokenBalance, setZappingTokenBalance] = useState(xdcBalance);
-  const [estimate, setEstimate] = useState({ token0: '0', token1: '0' }); // token0 will always be XDC in this case
+  const [zappingToken, setZappingToken] = useState(FTM_TICKER);
+  const [zappingTokenBalance, setZappingTokenBalance] = useState(ftmBalance);
+  const [estimate, setEstimate] = useState({ token0: '0', token1: '0' }); // token0 will always be FTM in this case
   const [approveZapperStatus, approveZapper] = useApproveZapper(zappingToken);
-  const hauntedXdcLpStats = useLpStats('HAUNTED-XDC-LP');
-  const hShareXdcLpStats = useLpStats('HSHARE-XDC-LP');
-  const hauntedLPStats = useMemo(() => (hauntedXdcLpStats ? hauntedXdcLpStats : null), [hauntedXdcLpStats]);
-  const hshareLPStats = useMemo(() => (hShareXdcLpStats ? hShareXdcLpStats : null), [hShareXdcLpStats]);
-  const xdcAmountPerLP = tokenName.startsWith(HAUNTED_TICKER) ? hauntedLPStats?.xdcAmount : hshareLPStats?.xdcAmount;
+  const hauntedFtmLpStats = useLpStats('HAUNTED-FTM-LP');
+  const hShareFtmLpStats = useLpStats('HSHARE-FTM-LP');
+  const hauntedLPStats = useMemo(() => (hauntedFtmLpStats ? hauntedFtmLpStats : null), [hauntedFtmLpStats]);
+  const hshareLPStats = useMemo(() => (hShareFtmLpStats ? hShareFtmLpStats : null), [hShareFtmLpStats]);
+  const ftmAmountPerLP = tokenName.startsWith(HAUNTED_TICKER) ? hauntedLPStats?.ftmAmount : hshareLPStats?.ftmAmount;
   /**
    * Checks if a value is a valid number or not
    * @param n is the value to be evaluated for a number
@@ -51,7 +51,7 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
   const handleChangeAsset = (event: any) => {
     const value = event.target.value;
     setZappingToken(value);
-    setZappingTokenBalance(xdcBalance);
+    setZappingTokenBalance(ftmBalance);
     if (event.target.value === HSHARE_TICKER) {
       setZappingTokenBalance(getDisplayBalance(hshareBalance, decimals));
     }
@@ -98,7 +98,7 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
         id="select"
         value={zappingToken}
       >
-        <StyledMenuItem value={XDC_TICKER}>XDC</StyledMenuItem>
+        <StyledMenuItem value={FTM_TICKER}>FTM</StyledMenuItem>
         <StyledMenuItem value={HSHARE_TICKER}>HSHARE</StyledMenuItem>
         {/* Haunted as an input for zapping will be disabled due to issues occuring with the Gatekeeper system */}
         {/* <StyledMenuItem value={HAUNTED_TICKER}>HAUNTED</StyledMenuItem> */}
@@ -113,11 +113,11 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
       <Label text="Zap Estimations" />
       <StyledDescriptionText>
         {' '}
-        {tokenName}: {Number(estimate.token0) / Number(xdcAmountPerLP)}
+        {tokenName}: {Number(estimate.token0) / Number(ftmAmountPerLP)}
       </StyledDescriptionText>
       <StyledDescriptionText>
         {' '}
-        ({Number(estimate.token0)} {XDC_TICKER} / {Number(estimate.token1)}{' '}
+        ({Number(estimate.token0)} {FTM_TICKER} / {Number(estimate.token1)}{' '}
         {tokenName.startsWith(HAUNTED_TICKER) ? HAUNTED_TICKER : HSHARE_TICKER}){' '}
       </StyledDescriptionText>
       <ModalActions>

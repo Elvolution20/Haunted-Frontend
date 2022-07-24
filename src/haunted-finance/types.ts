@@ -27,7 +27,7 @@ export type PoolStats = {
 };
 
 export type TokenStat = {
-  tokenInXdc: string;
+  tokenInFtm: string;
   priceInDollars: string;
   totalSupply: string;
   circulatingSupply: string;
@@ -35,7 +35,7 @@ export type TokenStat = {
 
 export type LPStat = {
   tokenAmount: string;
-  xdcAmount: string;
+  ftmAmount: string;
   priceOfOne: string;
   totalLiquidity: string;
   totalSupply: string;

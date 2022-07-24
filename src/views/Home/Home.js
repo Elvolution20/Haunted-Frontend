@@ -45,8 +45,8 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const TVL = useTotalValueLocked();
-  const hauntedXdcLpStats = useLpStats('HAUNTED-XDC-LP');
-  const hShareXdcLpStats = useLpStats('HSHARE-XDC-LP');
+  const hauntedFtmLpStats = useLpStats('HAUNTED-FTM-LP');
+  const hShareFtmLpStats = useLpStats('HSHARE-FTM-LP');
   const hauntedStats = useHauntedStats();
   const hShareStats = usehShareStats();
   const hBondStats = useBondStats();
@@ -62,16 +62,16 @@ const Home = () => {
     hShare = hShareProd;
   }
 
-  const buyHauntedAddress = 'https://exchange.xdcswaps.com/#/swap?outputCurrency=' + haunted.address;
-  const buyHShareAddress = 'https://exchange.xdcswaps.com/#/swap?outputCurrency=' + hShare.address;
+  const buyHauntedAddress = 'https://spookyswap.finance/swap?outputCurrency=' + haunted.address;
+  const buyHShareAddress = 'https://spookyswap.finance/swap?outputCurrency=' + hShare.address;
 
-  const hauntedLPStats = useMemo(() => (hauntedXdcLpStats ? hauntedXdcLpStats : null), [hauntedXdcLpStats]);
-  const hshareLPStats = useMemo(() => (hShareXdcLpStats ? hShareXdcLpStats : null), [hShareXdcLpStats]);
+  const hauntedLPStats = useMemo(() => (hauntedFtmLpStats ? hauntedFtmLpStats : null), [hauntedFtmLpStats]);
+  const hshareLPStats = useMemo(() => (hShareFtmLpStats ? hShareFtmLpStats : null), [hShareFtmLpStats]);
   const hauntedPriceInDollars = useMemo(
     () => (hauntedStats ? Number(hauntedStats.priceInDollars).toFixed(2) : null),
     [hauntedStats],
   );
-  const hauntedPriceInXDC = useMemo(() => (hauntedStats ? Number(hauntedStats.tokenInXdc).toFixed(4) : null), [hauntedStats]);
+  const hauntedPriceInFTM = useMemo(() => (hauntedStats ? Number(hauntedStats.tokenInFtm).toFixed(4) : null), [hauntedStats]);
   const hauntedCirculatingSupply = useMemo(() => (hauntedStats ? String(hauntedStats.circulatingSupply) : null), [hauntedStats]);
   const hauntedTotalSupply = useMemo(() => (hauntedStats ? String(hauntedStats.totalSupply) : null), [hauntedStats]);
 
@@ -79,8 +79,8 @@ const Home = () => {
     () => (hShareStats ? Number(hShareStats.priceInDollars).toFixed(2) : null),
     [hShareStats],
   );
-  const hSharePriceInXDC = useMemo(
-    () => (hShareStats ? Number(hShareStats.tokenInXdc).toFixed(4) : null),
+  const hSharePriceInFTM = useMemo(
+    () => (hShareStats ? Number(hShareStats.tokenInFtm).toFixed(4) : null),
     [hShareStats],
   );
   const hShareCirculatingSupply = useMemo(
@@ -93,15 +93,15 @@ const Home = () => {
     () => (hBondStats ? Number(hBondStats.priceInDollars).toFixed(2) : null),
     [hBondStats],
   );
-  const hBondPriceInXDC = useMemo(() => (hBondStats ? Number(hBondStats.tokenInXdc).toFixed(4) : null), [hBondStats]);
+  const hBondPriceInFTM = useMemo(() => (hBondStats ? Number(hBondStats.tokenInFtm).toFixed(4) : null), [hBondStats]);
   const hBondCirculatingSupply = useMemo(
     () => (hBondStats ? String(hBondStats.circulatingSupply) : null),
     [hBondStats],
   );
   const hBondTotalSupply = useMemo(() => (hBondStats ? String(hBondStats.totalSupply) : null), [hBondStats]);
 
-  const hauntedLpZap = useZap({ depositTokenName: 'HAUNTED-XDC-LP' });
-  const hshareLpZap = useZap({ depositTokenName: 'HSHARE-XDC-LP' });
+  const hauntedLpZap = useZap({ depositTokenName: 'HAUNTED-FTM-LP' });
+  const hshareLpZap = useZap({ depositTokenName: 'HSHARE-FTM-LP' });
 
   const StyledLink = styled.a`
     font-weight: 700;
@@ -116,7 +116,7 @@ const Home = () => {
         hauntedLpZap.onZap(zappingToken, tokenName, amount);
         onDissmissHauntedZap();
       }}
-      tokenName={'HAUNTED-XDC-LP'}
+      tokenName={'HAUNTED-FTM-LP'}
     />,
   );
 
@@ -128,7 +128,7 @@ const Home = () => {
         hshareLpZap.onZap(zappingToken, tokenName, amount);
         onDissmissHshareZap();
       }}
-      tokenName={'HSHARE-XDC-LP'}
+      tokenName={'HSHARE-FTM-LP'}
     />,
   );
 
@@ -146,9 +146,9 @@ const Home = () => {
           <Paper>
             <Box p={4}>
               <h2>Haunted Finance</h2>
-              <p>The first algorithmic stablecoin on XinFin, pegged to the price of 1 XDC via seigniorage.</p>
+              <p>The first algorithmic stablecoin on Conflux, pegged to the price of 1 CFX via seigniorage.</p>
               <p>
-                Stake your HAUNTED-XDC LP in the Farming to earn HSHARE rewards.
+                Stake your HAUNTED-CFX LP in the Farming to earn HSHARE rewards.
                 Then stake your earned HSHARE in the Staking to earn more HAUNTED!
               </p>
             </Box>
@@ -165,7 +165,7 @@ const Home = () => {
           <Card>
             <CardContent align="center">
               <h2>Total Value Locked</h2>
-              <CountUp style={{ fontSize: '25px' }} end="300000" separator="," prefix="$" />
+              <CountUp style={{ fontSize: '25px' }} end={TVL} separator="," prefix="$" />
             </CardContent>
           </Card>
         </Grid>
@@ -221,17 +221,17 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{hauntedPriceInXDC ? hauntedPriceInXDC : '1'} XDC</span>
+                <span style={{ fontSize: '30px' }}>{hauntedPriceInFTM ? hauntedPriceInFTM : '-.----'} CFX</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px', alignContent: 'flex-start' }}>
-                  ${hauntedPriceInDollars ? hauntedPriceInDollars : '0.03'}
+                  ${hauntedPriceInDollars ? hauntedPriceInDollars : '-.--'}
                 </span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: $30000 {(hauntedCirculatingSupply * hauntedPriceInDollars).toFixed(2)} <br />
-                Circulating Supply: 50000 {hauntedCirculatingSupply} <br />
-                Total Supply: 100000 {hauntedTotalSupply}
+                Market Cap: ${(hauntedCirculatingSupply * hauntedPriceInDollars).toFixed(2)} <br />
+                Circulating Supply: {hauntedCirculatingSupply} <br />
+                Total Supply: {hauntedTotalSupply}
               </span>
             </CardContent>
           </Card>
@@ -260,15 +260,15 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{hSharePriceInXDC ? hSharePriceInXDC : '33333'} XDC</span>
+                <span style={{ fontSize: '30px' }}>{hSharePriceInFTM ? hSharePriceInFTM : '-.----'} CFX</span>
               </Box>
               <Box>
-                <span style={{ fontSize: '16px' }}>${hSharePriceInDollars ? hSharePriceInDollars : '1000'}</span>
+                <span style={{ fontSize: '16px' }}>${hSharePriceInDollars ? hSharePriceInDollars : '-.--'}</span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: $70000000{(hShareCirculatingSupply * hSharePriceInDollars).toFixed(2)} <br />
-                Circulating Supply:25000 {hShareCirculatingSupply} <br />
-                Total Supply:70000 {hShareTotalSupply}
+                Market Cap: ${(hShareCirculatingSupply * hSharePriceInDollars).toFixed(2)} <br />
+                Circulating Supply: {hShareCirculatingSupply} <br />
+                Total Supply: {hShareTotalSupply}
               </span>
             </CardContent>
           </Card>
@@ -297,15 +297,15 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{hBondPriceInXDC ? hBondPriceInXDC : '1.1'} XDC</span>
+                <span style={{ fontSize: '30px' }}>{hBondPriceInFTM ? hBondPriceInFTM : '-.----'} CFX</span>
               </Box>
               <Box>
-                <span style={{ fontSize: '16px' }}>${hBondPriceInDollars ? hBondPriceInDollars : '0.035'}</span>
+                <span style={{ fontSize: '16px' }}>${hBondPriceInDollars ? hBondPriceInDollars : '-.--'}</span>
               </Box>
               <span style={{ fontSize: '12px' }}>
-                Market Cap: $350{(hBondCirculatingSupply * hBondPriceInDollars).toFixed(2)} <br />
-                Circulating Supply:100000 {hBondCirculatingSupply} <br />
-                Total Supply:100000 {hBondTotalSupply}
+                Market Cap: ${(hBondCirculatingSupply * hBondPriceInDollars).toFixed(2)} <br />
+                Circulating Supply: {hBondCirculatingSupply} <br />
+                Total Supply: {hBondTotalSupply}
               </span>
             </CardContent>
           </Card>

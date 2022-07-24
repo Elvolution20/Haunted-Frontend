@@ -19,12 +19,12 @@ const usePromptNetwork = () => {
           chainId: `0x${config.chainId.toString(16)}`,
           chainName: config.networkName,
           nativeCurrency: {
-            name: 'XDC',
-            symbol: 'xdc',
+            name: 'FTM',
+            symbol: 'ftm',
             decimals: 18,
           },
           rpcUrls: [config.defaultProvider],
-          blockExplorerUrls: [config.xdcscanUrl],
+          blockExplorerUrls: [config.ftmscanUrl],
         },
       ],
     });

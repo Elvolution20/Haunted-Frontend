@@ -107,17 +107,17 @@ const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
   let pairName: string;
   let uniswapUrl: string;
   if (bank.depositTokenName.includes('HAUNTED')) {
-    pairName = 'HAUNTED-XDC pair';
-    uniswapUrl = 'https://spookyswap.finance/add/XDC/' + hauntedAddr;
+    pairName = 'HAUNTED-FTM pair';
+    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + hauntedAddr;
   } else {
-    pairName = 'HSHARE-XDC pair';
-    uniswapUrl = 'https://spookyswap.finance/add/XDC/' + hshareAddr;
+    pairName = 'HSHARE-FTM pair';
+    uniswapUrl = 'https://spookyswap.finance/add/FTM/' + hshareAddr;
   }
   return (
     <Card>
       <CardContent>
         <StyledLink href={uniswapUrl} target="_blank">
-          {` Provide liquidity for ${pairName} now on XDC Swap `}
+          {` Provide liquidity for ${pairName} now on Swappi-Dex `}
         </StyledLink>
       </CardContent>
     </Card>

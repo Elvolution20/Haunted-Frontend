@@ -7,10 +7,10 @@ import hauntedLogoPNG from '../../assets/img/haunted_cash.png';
 import hShareLogoPNG from '../../assets/img/haunted_share.png';
 import hBondLogo from '../../assets/img/haunted_bond.png';
 
-import hauntedXdcLpLogo from '../../assets/img/haunted_xdc_lp.png';
-import hshareXdcLpLogo from '../../assets/img/hshare_xdc_lp.png';
+import hauntedFtmLpLogo from '../../assets/img/haunted_ftm_lp.png';
+import hshareFtmLpLogo from '../../assets/img/hshare_ftm_lp.png';
 
-import wxdcLogo from '../../assets/img/xdc_logo_blue.svg';
+import wftmLogo from '../../assets/img/ftm_logo_blue.svg';
 import booLogo from '../../assets/img/spooky.png';
 import zooLogo from '../../assets/img/zoo_logo.svg';
 import shibaLogo from '../../assets/img/shiba_logo.svg';
@@ -23,12 +23,12 @@ const logosBySymbol: { [title: string]: string } = {
   HSHAREPNG: hShareLogoPNG,
   HSHARE: hShareLogo,
   HBOND: hBondLogo,
-  WXDC: wxdcLogo,
+  WFTM: wftmLogo,
   BOO: booLogo,
   SHIBA: shibaLogo,
   ZOO: zooLogo,
-  'HAUNTED-XDC-LP': hauntedXdcLpLogo,
-  'HSHARE-XDC-LP': hshareXdcLpLogo,
+  'HAUNTED-FTM-LP': hauntedFtmLpLogo,
+  'HSHARE-FTM-LP': hshareFtmLpLogo,
 };
 
 type LogoProps = {

@@ -12,7 +12,7 @@ import useTokenBalance from '../../hooks/useTokenBalance';
 import { getDisplayBalance } from '../../utils/formatBalance';
 import useApproveTaxOffice from '../../hooks/useApproveTaxOffice';
 import { ApprovalState } from '../../hooks/useApprove';
-import useProvideHauntedXdcLP from '../../hooks/useProvideHauntedXdcLP';
+import useProvideHauntedFtmLP from '../../hooks/useProvideHauntedFtmLP';
 import { Alert } from '@material-ui/lab';
 
 const BackgroundImage = createGlobalStyle`
@@ -27,20 +27,20 @@ function isNumeric(n) {
 
 const ProvideLiquidity = () => {
   const [hauntedAmount, setHauntedAmount] = useState(0);
-  const [xdcAmount, setXdcAmount] = useState(0);
+  const [ftmAmount, setFtmAmount] = useState(0);
   const [lpTokensAmount, setLpTokensAmount] = useState(0);
   const { balance } = useWallet();
   const hauntedStats = useHauntedStats();
   const hauntedFinance = useHauntedFinance();
   const [approveTaxOfficeStatus, approveTaxOffice] = useApproveTaxOffice();
   const hauntedBalance = useTokenBalance(hauntedFinance.HAUNTED);
-  const xdcBalance = (balance / 1e18).toFixed(4);
-  const { onProvideHauntedXdcLP } = useProvideHauntedXdcLP();
-  const hauntedXdcLpStats = useLpStats('HAUNTED-XDC-LP');
+  const ftmBalance = (balance / 1e18).toFixed(4);
+  const { onProvideHauntedFtmLP } = useProvideHauntedFtmLP();
+  const hauntedFtmLpStats = useLpStats('HAUNTED-FTM-LP');
 
-  const hauntedLPStats = useMemo(() => (hauntedXdcLpStats ? hauntedXdcLpStats : null), [hauntedXdcLpStats]);
-  const hauntedPriceInXDC = useMemo(() => (hauntedStats ? Number(hauntedStats.tokenInXdc).toFixed(2) : null), [hauntedStats]);
-  const xdcPriceInHAUNTED = useMemo(() => (hauntedStats ? Number(1 / hauntedStats.tokenInXdc).toFixed(2) : null), [hauntedStats]);
+  const hauntedLPStats = useMemo(() => (hauntedFtmLpStats ? hauntedFtmLpStats : null), [hauntedFtmLpStats]);
+  const hauntedPriceInFTM = useMemo(() => (hauntedStats ? Number(hauntedStats.tokenInFtm).toFixed(2) : null), [hauntedStats]);
+  const ftmPriceInHAUNTED = useMemo(() => (hauntedStats ? Number(1 / hauntedStats.tokenInFtm).toFixed(2) : null), [hauntedStats]);
   // const classes = useStyles();
 
   const handleHauntedChange = async (e) => {
@@ -50,17 +50,17 @@ const ProvideLiquidity = () => {
     if (!isNumeric(e.currentTarget.value)) return;
     setHauntedAmount(e.currentTarget.value);
     const quoteFromSpooky = await hauntedFinance.quoteFromSpooky(e.currentTarget.value, 'HAUNTED');
-    setXdcAmount(quoteFromSpooky);
-    setLpTokensAmount(quoteFromSpooky / hauntedLPStats.xdcAmount);
+    setFtmAmount(quoteFromSpooky);
+    setLpTokensAmount(quoteFromSpooky / hauntedLPStats.ftmAmount);
   };
 
-  const handleXdcChange = async (e) => {
+  const handleFtmChange = async (e) => {
     if (e.currentTarget.value === '' || e.currentTarget.value === 0) {
-      setXdcAmount(e.currentTarget.value);
+      setFtmAmount(e.currentTarget.value);
     }
     if (!isNumeric(e.currentTarget.value)) return;
-    setXdcAmount(e.currentTarget.value);
-    const quoteFromSpooky = await hauntedFinance.quoteFromSpooky(e.currentTarget.value, 'XDC');
+    setFtmAmount(e.currentTarget.value);
+    const quoteFromSpooky = await hauntedFinance.quoteFromSpooky(e.currentTarget.value, 'FTM');
     setHauntedAmount(quoteFromSpooky);
 
     setLpTokensAmount(quoteFromSpooky / hauntedLPStats.tokenAmount);
@@ -68,14 +68,14 @@ const ProvideLiquidity = () => {
   const handleHauntedSelectMax = async () => {
     const quoteFromSpooky = await hauntedFinance.quoteFromSpooky(getDisplayBalance(hauntedBalance), 'HAUNTED');
     setHauntedAmount(getDisplayBalance(hauntedBalance));
-    setXdcAmount(quoteFromSpooky);
-    setLpTokensAmount(quoteFromSpooky / hauntedLPStats.xdcAmount);
+    setFtmAmount(quoteFromSpooky);
+    setLpTokensAmount(quoteFromSpooky / hauntedLPStats.ftmAmount);
   };
-  const handleXdcSelectMax = async () => {
-    const quoteFromSpooky = await hauntedFinance.quoteFromSpooky(xdcBalance, 'XDC');
-    setXdcAmount(xdcBalance);
+  const handleFtmSelectMax = async () => {
+    const quoteFromSpooky = await hauntedFinance.quoteFromSpooky(ftmBalance, 'FTM');
+    setFtmAmount(ftmBalance);
     setHauntedAmount(quoteFromSpooky);
-    setLpTokensAmount(xdcBalance / hauntedLPStats.xdcAmount);
+    setLpTokensAmount(ftmBalance / hauntedLPStats.ftmAmount);
   };
   return (
     <Page>
@@ -87,7 +87,7 @@ const ProvideLiquidity = () => {
       <Grid container justify="center">
         <Box style={{ width: '600px' }}>
           <Alert variant="filled" severity="warning" style={{ marginBottom: '10px' }}>
-            <b>This and <a href=""  rel="noopener noreferrer" target="_blank">XDC Swap</a> are the only ways to provide Liquidity on HAUNTED-XDC pair without paying tax.</b>
+            <b>This and <a href=""  rel="noopener noreferrer" target="_blank">Swappi-Dex</a> are the only ways to provide Liquidity on HAUNTED-CFX pair without paying tax.</b>
           </Alert>
           <Grid item xs={12} sm={12}>
             <Paper>
@@ -106,23 +106,23 @@ const ProvideLiquidity = () => {
                       </Grid>
                       <Grid item xs={12}>
                         <TokenInput
-                          onSelectMax={handleXdcSelectMax}
-                          onChange={handleXdcChange}
-                          value={xdcAmount}
-                          max={xdcBalance}
-                          symbol={'XDC'}
+                          onSelectMax={handleFtmSelectMax}
+                          onChange={handleFtmChange}
+                          value={ftmAmount}
+                          max={ftmBalance}
+                          symbol={'CFX'}
                         ></TokenInput>
                       </Grid>
                       <Grid item xs={12}>
-                        <p>1 HAUNTED = {hauntedPriceInXDC} XDC</p>
-                        <p>1 XDC = {xdcPriceInHAUNTED} HAUNTED</p>
+                        <p>1 HAUNTED = {hauntedPriceInFTM} CFX</p>
+                        <p>1 CFX = {ftmPriceInHAUNTED} HAUNTED</p>
                         <p>LP tokens ≈ {lpTokensAmount.toFixed(2)}</p>
                       </Grid>
                       <Grid xs={12} justifyContent="center" style={{ textAlign: 'center' }}>
                         {approveTaxOfficeStatus === ApprovalState.APPROVED ? (
                           <Button
                             variant="contained"
-                            onClick={() => onProvideHauntedXdcLP(xdcAmount.toString(), hauntedAmount.toString())}
+                            onClick={() => onProvideHauntedFtmLP(ftmAmount.toString(), hauntedAmount.toString())}
                             color="primary"
                             style={{ margin: '0 10px', color: '#fff' }}
                           >

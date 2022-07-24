@@ -124,7 +124,7 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
                 </IconButton>
                 <StyledActionSpacer />
                 <IconButton
-                  disabled={bank.closedForStaking || bank.depositTokenName === 'HAUNTED-XDC-LP'}
+                  disabled={bank.closedForStaking || bank.depositTokenName === 'HAUNTED-FTM-LP'}
                   onClick={() => (bank.closedForStaking ? null : onPresentZap())}
                 >
                   <FlashOnIcon style={{ color: themeColor.grey[400] }} />
