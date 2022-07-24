@@ -15,7 +15,6 @@ import config from './config';
 import Updaters from './state/Updaters';
 import Loader from './components/Loader';
 import Popups from './components/Popups';
-import Regulations from './views/Regulations/Regulations';
 import { RefreshContextProvider } from './contexts/RefreshContext';
 
 const Home = lazy(() => import('./views/Home'));
@@ -60,9 +59,6 @@ const App: React.FC = () => {
             </Route>
             <Route path="/sbs">
               <SBS />
-            </Route>
-            <Route path="/regulations">
-              <Regulations />
             </Route>
             <Route path="/liquidity">
               <Liquidity />

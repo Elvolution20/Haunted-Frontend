@@ -7,13 +7,11 @@ import hauntedLogoPNG from '../../assets/img/haunted_cash.png';
 import hShareLogoPNG from '../../assets/img/haunted_share.png';
 import hBondLogo from '../../assets/img/haunted_bond.png';
 
-import hauntedFtmLpLogo from '../../assets/img/haunted_ftm_lp.png';
-import hshareFtmLpLogo from '../../assets/img/hshare_ftm_lp.png';
+import hauntedFtmLpLogo from '../../assets/img/haunted_cash.png';
+import hshareFtmLpLogo from '../../assets/img/haunted_share.png';
 
 import wftmLogo from '../../assets/img/ftm_logo_blue.svg';
-import booLogo from '../../assets/img/spooky.png';
-import zooLogo from '../../assets/img/zoo_logo.svg';
-import shibaLogo from '../../assets/img/shiba_logo.svg';
+
 
 const logosBySymbol: { [title: string]: string } = {
   //Real tokens
@@ -24,9 +22,6 @@ const logosBySymbol: { [title: string]: string } = {
   HSHARE: hShareLogo,
   HBOND: hBondLogo,
   WFTM: wftmLogo,
-  BOO: booLogo,
-  SHIBA: shibaLogo,
-  ZOO: zooLogo,
   'HAUNTED-FTM-LP': hauntedFtmLpLogo,
   'HSHARE-FTM-LP': hshareFtmLpLogo,
 };
