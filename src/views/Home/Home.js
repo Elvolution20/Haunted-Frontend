@@ -260,7 +260,7 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{hSharePriceInFTM ? hSharePriceInFTM : '33333'} XDC</span>
+                <span style={{ fontSize: '30px' }}>{hSharePriceInFTM ? hSharePriceInFTM : '3333'} XDC</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px' }}>${hSharePriceInDollars ? hSharePriceInDollars : '100'}</span>
