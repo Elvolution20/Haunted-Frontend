@@ -1,6 +1,6 @@
 {
   "BondOracle": {
-    "address": "0xE4EFD87ad34360932E5325D77A0a6e39147DEbFa",
+    "address": "",
     "abi": [
       {
         "inputs": [
@@ -457,7 +457,7 @@
     ]
   },
   "SeigniorageOracle": {
-    "address": "0x55530fA1B042582D5FA3C313a7e02d21Af6B82f4",
+    "address": "",
     "abi": [
       {
         "inputs": [
@@ -862,7 +862,7 @@
     ]
   },
   "haunted": {
-    "address": "xdc93922BD5d6BddD9D7C1d2837F2B61E41C14959e7",
+    "address": "xdca375Eb2BA2B6F672Ac845Ab21634112a4122Bc99",
     "abi": [
       {
         "inputs": [
@@ -1754,7 +1754,7 @@
     ]
   },
   "hShare": {
-    "address": "xdca375Eb2BA2B6F672Ac845Ab21634112a4122Bc99",
+    "address": "xdc828a9CA1347B3b3525FD94700B78bB048dB1eF8B",
     "abi": [
       {
         "inputs": [
@@ -2432,7 +2432,7 @@
     ]
   },
   "hBond": {
-    "address": "xdc828a9CA1347B3b3525FD94700B78bB048dB1eF8B",
+    "address": "xdc6b294d4527cafeA20F10024339AEc8732077fCA7",
     "abi": [
       {
         "inputs": [],
@@ -2877,7 +2877,7 @@
     ]
   },
   "Treasury": {
-    "address": "xdcFBbb45aa806B0b0ec511dc50F334D9376b14cB3b",
+    "address": "xdc033980b7fb569b6112DB116cb04c001250912f3C",
     "abi": [
       {
         "anonymous": false,
@@ -4016,7 +4016,7 @@
     ]
   },
   "Staking": {
-    "address": "xdc6b294d4527cafeA20F10024339AEc8732077fCA7",
+    "address": "xdc32C76b8c30b7AAF1Da9a415c8CDd8f944c79f341",
     "abi": [
       {
         "anonymous": false,
@@ -4568,7 +4568,7 @@
     ]
   },
   "HauntedFtmRewardPool": {
-    "address": "0x9A896d3c54D7e45B558BD5fFf26bF1E8C031F93b",
+    "address": "",
     "abi": [
       {
         "inputs": [
@@ -5054,7 +5054,7 @@
     ]
   },
   "HauntedFtmLpHauntedRewardPool": {
-    "address": "0xa7b9123f4b15fE0fF01F469ff5Eab2b41296dC0E",
+    "address": "",
     "abi": [
       {
         "inputs": [
@@ -5545,7 +5545,7 @@
     ]
   },
   "HauntedFtmLPHShareRewardPool": {
-    "address": "0xcc0a87F7e7c693042a9Cc703661F5060c80ACb43",
+    "address": "",
     "abi": [
       {
         "inputs": [
@@ -6031,7 +6031,7 @@
     ]
   },
   "HshareFtmLPHShareRewardPool": {
-    "address": "0xcc0a87F7e7c693042a9Cc703661F5060c80ACb43",
+    "address": "",
     "abi": [
       {
         "inputs": [
@@ -6517,7 +6517,7 @@
     ]
   },
   "TaxOffice": {
-    "address": "xdcC4a18B3BBa49a47514d2f58B3787E9952E27bD49",
+    "address": "xdcFBbb45aa806B0b0ec511dc50F334D9376b14cB3b",
     "abi": [
       {
         "anonymous": false,
@@ -6997,7 +6997,7 @@
     ]
   },
   "SpookyRouter": {
-    "address": "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
+    "address": "",
     "abi": [
       {
         "inputs": [
@@ -7973,7 +7973,7 @@
     ]
   },
   "HShareSwapper": {
-    "address": "0x2942168Fa8A39d070cB1173a54479F7C6A94604d",
+    "address": "",
     "abi": [
       {
         "inputs": [

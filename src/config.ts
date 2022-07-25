@@ -9,7 +9,7 @@ const configurations: { [env: string]: Configuration } = {
     networkName: 'XinFin Apothem Mainnet',
     xdcscanUrl: 'https://xinfin.org',
     defaultProvider: 'https://explorer.xinfin.network/',
-    deployments: require('./haunted-finance/deployments/deployments.testnet.json'),
+    deployments: require('./haunted-finance/deployments/deployments.testing.json'),
     externalTokens: {
       WXDC: ['0xf1277d1ed8ad466beddf92ef448a132661956621', 18],
       'HAUNTED-XDC-LP': ['0x13Fe199F19c8F719652985488F150762A5E9c3A8', 18],
