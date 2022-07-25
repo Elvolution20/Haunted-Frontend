@@ -32,7 +32,5 @@ npx prettier --write .
 
 ## Useful Resources
 
-- [Our project documentation](https://docs.haunted.finance/) will help you understand before start contributing
-- Join our [Discord](https://discord.gg/hauntedfinance) community
-- Or if you are more of a [Telegram Zombie](https://discord.gg/hauntedfinance) we have that too
-- Bugs? Use the [Issues](https://github.com/hauntedfinance/hauntedfinance-frontend/issues) section of our github to report them
+- [Our project documentation](https://haunted-finance.gitbook.io/haunted-finance/) will help you understand before start contributing
+

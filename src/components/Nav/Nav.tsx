@@ -165,7 +165,7 @@ const Nav = () => {
                 <ListItemLink primary="Bondroom" to="/bondroom" />
                 <ListItemLink primary="SBS" to="/sbs" />
                 <ListItemLink primary="Liquidity" to="/liquidity" />
-                <ListItem button component="a" href="">
+                <ListItem button component="a" href="https://haunted-finance.gitbook.io/haunted-finance/">
                   <ListItemText>Docs</ListItemText>
                 </ListItem>
                 <ListItem style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

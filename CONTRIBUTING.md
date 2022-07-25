@@ -1,4 +1,4 @@
-# Contributing to [Haunted.Fiance](https://haunted.finance)
+# Contributing to [Haunted.Fiance](https://haunted-finance.vercel.app)
 
 🎉 First off all, thanks for taking the time to contribute! 🎉
 
