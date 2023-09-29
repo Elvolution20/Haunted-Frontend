@@ -34,3 +34,4 @@ npx prettier --write .
 
 - [Our project documentation](https://haunted-finance.gitbook.io/haunted-finance/) will help you understand before start contributing
 
+ 
