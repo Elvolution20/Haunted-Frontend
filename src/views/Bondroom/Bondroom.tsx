@@ -106,7 +106,7 @@ const Bondroom: React.FC = () => {
                   priceDesc={`${getDisplayBalance(bondBalance)} HBOND Available in wallet`}
                   onExchange={handleRedeemBonds}
                   disabled={!bondStat || bondBalance.eq(0) || !isBondRedeemable}
-                  disabledDescription={!isBondRedeemable ? `Enabled when HAUNTED > ${BOND_REDEEM_PRICE}XDC` : null}
+                  disabledDescription={!isBondRedeemable ? `Enabled when HAUNTED > ${BOND_REDEEM_PRICE}PG` : null}
                 />
               </StyledCardWrapper>
             </StyledBond>

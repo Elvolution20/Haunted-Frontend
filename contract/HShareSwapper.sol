@@ -671,7 +671,7 @@ contract HShareSwapper is Operator {
     address public hauntedSpookyLpPair;
     address public hshareSpookyLpPair;
 
-    address public wxdcAddress;
+    address public wpgAddress;
 
     address public daoAddress;
 
@@ -682,7 +682,7 @@ contract HShareSwapper is Operator {
             address _haunted,
             address _hbond,
             address _hshare,
-            address _wxdcAddress,
+            address _wpgAddress,
             address _hauntedSpookyLpPair,
             address _hshareSpookyLpPair,
             address _daoAddress
@@ -690,7 +690,7 @@ contract HShareSwapper is Operator {
         haunted = IERC20(_haunted);
         hbond = IERC20(_hbond);
         hshare = IERC20(_hshare);
-        wxdcAddress = _wxdcAddress; 
+        wpgAddress = _wpgAddress; 
         hauntedSpookyLpPair = _hauntedSpookyLpPair;
         hshareSpookyLpPair = _hshareSpookyLpPair;
         daoAddress = _daoAddress;
@@ -735,24 +735,24 @@ contract HShareSwapper is Operator {
     }
 
     function getHauntedPrice() public view returns (uint256) {
-        return IERC20(wxdcAddress).balanceOf(hauntedSpookyLpPair)
+        return IERC20(wpgAddress).balanceOf(hauntedSpookyLpPair)
             .mul(1e18)
 	    .div(haunted.balanceOf(hauntedSpookyLpPair));
     }
 
     function getHSharePrice() public view returns (uint256) {
-        return IERC20(wxdcAddress).balanceOf(hshareSpookyLpPair)
+        return IERC20(wpgAddress).balanceOf(hshareSpookyLpPair)
             .mul(1e18)
             .div(hshare.balanceOf(hshareSpookyLpPair));
     }
 
     function getHShareAmountPerHaunted() public view returns (uint256) {
-        uint256 hauntedPrice = IERC20(wxdcAddress).balanceOf(hauntedSpookyLpPair)
+        uint256 hauntedPrice = IERC20(wpgAddress).balanceOf(hauntedSpookyLpPair)
             .mul(1e18)
 	    .div(haunted.balanceOf(hauntedSpookyLpPair));
 
         uint256 hsharePrice =
-            IERC20(wxdcAddress).balanceOf(hshareSpookyLpPair)
+            IERC20(wpgAddress).balanceOf(hshareSpookyLpPair)
 	    .mul(1e18)
             .div(hshare.balanceOf(hshareSpookyLpPair));
             

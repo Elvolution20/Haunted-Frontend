@@ -1325,7 +1325,7 @@ contract Treasury is ContractGuard {
             _sendToStaking(hauntedSupply.mul(bootstrapSupplyExpansionPercent).div(10000));
         } else {
             if (previousEpochHauntedPrice > hauntedPriceCeiling) {
-                // Expansion ($HAUNTED Price > 1 $XDC): there is some seigniorage to be allocated
+                // Expansion ($HAUNTED Price > 1 $PG): there is some seigniorage to be allocated
                 uint256 bondSupply = IERC20(hbond).totalSupply();
                 uint256 _percentage = previousEpochHauntedPrice.sub(hauntedPriceOne);
                 uint256 _savedForBond;

@@ -566,7 +566,7 @@ contract HauntedGenesisRewardPool {
     }
 
     IERC20 public haunted;
-    address public xdc;
+    address public pg;
 
     // Info of each pool.
     PoolInfo[] public poolInfo;
@@ -602,12 +602,12 @@ contract HauntedGenesisRewardPool {
 
     constructor(
         address _haunted,
-        address _xdc,
+        address _pg,
         uint256 _poolStartTime
     ) public {
         require(block.timestamp < _poolStartTime, "late");
         if (_haunted != address(0)) haunted = IERC20(_haunted);
-        if (_xdc != address(0)) xdc = _xdc;
+        if (_pg != address(0)) pg = _pg;
         poolStartTime = _poolStartTime;
         poolEndTime = poolStartTime + runningTime;
         operator = msg.sender;
@@ -752,7 +752,7 @@ contract HauntedGenesisRewardPool {
         }
         if (_amount > 0) {
             pool.token.safeTransferFrom(_sender, address(this), _amount);
-            if(address(pool.token) == xdc) {
+            if(address(pool.token) == pg) {
                 user.amount = user.amount.add(_amount.mul(9900).div(10000));
             } else {
                 user.amount = user.amount.add(_amount);
