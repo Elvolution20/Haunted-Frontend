@@ -9,11 +9,11 @@ const useProvideHauntedFtmLP = () => {
   const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleProvideHauntedFtmLP = useCallback(
-    (pgAmount: string, hauntedAmount: string) => {
+    (xdcAmount: string, hauntedAmount: string) => {
       const hauntedAmountBn = parseUnits(hauntedAmount);
       handleTransactionReceipt(
-        hauntedFinance.provideHauntedFtmLP(pgAmount, hauntedAmountBn),
-        `Provide Haunted-PG LP ${hauntedAmount} ${pgAmount} using ${TAX_OFFICE_ADDR}`,
+        hauntedFinance.provideHauntedFtmLP(xdcAmount, hauntedAmountBn),
+        `Provide Haunted-XDC LP ${hauntedAmount} ${xdcAmount} using ${TAX_OFFICE_ADDR}`,
       );
     },
     [hauntedFinance, handleTransactionReceipt],

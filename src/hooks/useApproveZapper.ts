@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { useHasPendingApproval, useTransactionAdder } from '../state/transactions/hooks';
 import useAllowance from './useAllowance';
 import ERC20 from '../haunted-finance/ERC20';
-import { PG_TICKER, HAUNTED_TICKER, HSHARE_TICKER, ZAPPER_ROUTER_ADDR } from '../utils/constants';
+import { XDC_TICKER, HAUNTED_TICKER, HSHARE_TICKER, ZAPPER_ROUTER_ADDR } from '../utils/constants';
 import useHauntedFinance from './useHauntedFinance';
 
 const APPROVE_AMOUNT = ethers.constants.MaxUint256;
@@ -20,7 +20,7 @@ export enum ApprovalState {
 function useApproveZapper(zappingToken: string): [ApprovalState, () => Promise<void>] {
   const hauntedFinance = useHauntedFinance();
   let token: ERC20;
-  if (zappingToken === PG_TICKER) token = hauntedFinance.PG;
+  if (zappingToken === XDC_TICKER) token = hauntedFinance.XDC;
   else if (zappingToken === HAUNTED_TICKER) token = hauntedFinance.HAUNTED;
   else if (zappingToken === HSHARE_TICKER) token = hauntedFinance.HSHARE;
   const pendingApproval = useHasPendingApproval(token.address, ZAPPER_ROUTER_ADDR);
@@ -29,7 +29,7 @@ function useApproveZapper(zappingToken: string): [ApprovalState, () => Promise<v
   // check the current approval status
   const approvalState: ApprovalState = useMemo(() => {
     // we might not have enough data to know whether or not we need to approve
-    if (token === hauntedFinance.PG) return ApprovalState.APPROVED;
+    if (token === hauntedFinance.XDC) return ApprovalState.APPROVED;
     if (!currentAllowance) return ApprovalState.UNKNOWN;
 
     // amountToApprove will be defined if currentAllowance is

@@ -27,20 +27,20 @@ function isNumeric(n) {
 
 const ProvideLiquidity = () => {
   const [hauntedAmount, setHauntedAmount] = useState(0);
-  const [pgAmount, setFtmAmount] = useState(0);
+  const [xdcAmount, setFtmAmount] = useState(0);
   const [lpTokensAmount, setLpTokensAmount] = useState(0);
   const { balance } = useWallet();
   const hauntedStats = useHauntedStats();
   const hauntedFinance = useHauntedFinance();
   const [approveTaxOfficeStatus, approveTaxOffice] = useApproveTaxOffice();
   const hauntedBalance = useTokenBalance(hauntedFinance.HAUNTED);
-  const pgBalance = (balance / 1e18).toFixed(4);
+  const xdcBalance = (balance / 1e18).toFixed(4);
   const { onProvideHauntedFtmLP } = useProvideHauntedFtmLP();
-  const hauntedFtmLpStats = useLpStats('HAUNTED-PG-LP');
+  const hauntedFtmLpStats = useLpStats('HAUNTED-XDC-LP');
 
   const hauntedLPStats = useMemo(() => (hauntedFtmLpStats ? hauntedFtmLpStats : null), [hauntedFtmLpStats]);
-  const hauntedPriceInPG = useMemo(() => (hauntedStats ? Number(hauntedStats.tokenInFtm).toFixed(2) : null), [hauntedStats]);
-  const pgPriceInHAUNTED = useMemo(() => (hauntedStats ? Number(1 / hauntedStats.tokenInFtm).toFixed(2) : null), [hauntedStats]);
+  const hauntedPriceInXDC = useMemo(() => (hauntedStats ? Number(hauntedStats.tokenInFtm).toFixed(2) : null), [hauntedStats]);
+  const xdcPriceInHAUNTED = useMemo(() => (hauntedStats ? Number(1 / hauntedStats.tokenInFtm).toFixed(2) : null), [hauntedStats]);
   // const classes = useStyles();
 
   const handleHauntedChange = async (e) => {
@@ -51,7 +51,7 @@ const ProvideLiquidity = () => {
     setHauntedAmount(e.currentTarget.value);
     const quoteFromSpooky = await hauntedFinance.quoteFromSpooky(e.currentTarget.value, 'HAUNTED');
     setFtmAmount(quoteFromSpooky);
-    setLpTokensAmount(quoteFromSpooky / hauntedLPStats.pgAmount);
+    setLpTokensAmount(quoteFromSpooky / hauntedLPStats.xdcAmount);
   };
 
   const handleFtmChange = async (e) => {
@@ -60,7 +60,7 @@ const ProvideLiquidity = () => {
     }
     if (!isNumeric(e.currentTarget.value)) return;
     setFtmAmount(e.currentTarget.value);
-    const quoteFromSpooky = await hauntedFinance.quoteFromSpooky(e.currentTarget.value, 'PG');
+    const quoteFromSpooky = await hauntedFinance.quoteFromSpooky(e.currentTarget.value, 'XDC');
     setHauntedAmount(quoteFromSpooky);
 
     setLpTokensAmount(quoteFromSpooky / hauntedLPStats.tokenAmount);
@@ -69,13 +69,13 @@ const ProvideLiquidity = () => {
     const quoteFromSpooky = await hauntedFinance.quoteFromSpooky(getDisplayBalance(hauntedBalance), 'HAUNTED');
     setHauntedAmount(getDisplayBalance(hauntedBalance));
     setFtmAmount(quoteFromSpooky);
-    setLpTokensAmount(quoteFromSpooky / hauntedLPStats.pgAmount);
+    setLpTokensAmount(quoteFromSpooky / hauntedLPStats.xdcAmount);
   };
   const handleFtmSelectMax = async () => {
-    const quoteFromSpooky = await hauntedFinance.quoteFromSpooky(pgBalance, 'PG');
-    setFtmAmount(pgBalance);
+    const quoteFromSpooky = await hauntedFinance.quoteFromSpooky(xdcBalance, 'XDC');
+    setFtmAmount(xdcBalance);
     setHauntedAmount(quoteFromSpooky);
-    setLpTokensAmount(pgBalance / hauntedLPStats.pgAmount);
+    setLpTokensAmount(xdcBalance / hauntedLPStats.xdcAmount);
   };
   return (
     <Page>
@@ -87,7 +87,7 @@ const ProvideLiquidity = () => {
       <Grid container justify="center">
         <Box style={{ width: '600px' }}>
           <Alert variant="filled" severity="warning" style={{ marginBottom: '10px' }}>
-            <b>This and <a href=""  rel="noopener noreferrer" target="_blank">PGSwap</a> are the only ways to provide Liquidity on HAUNTED-PG pair without paying tax.</b>
+            <b>This and <a href=""  rel="noopener noreferrer" target="_blank">XDCSwap</a> are the only ways to provide Liquidity on HAUNTED-XDC pair without paying tax.</b>
           </Alert>
           <Grid item xs={12} sm={12}>
             <Paper>
@@ -108,21 +108,21 @@ const ProvideLiquidity = () => {
                         <TokenInput
                           onSelectMax={handleFtmSelectMax}
                           onChange={handleFtmChange}
-                          value={pgAmount}
-                          max={pgBalance}
-                          symbol={'PG'}
+                          value={xdcAmount}
+                          max={xdcBalance}
+                          symbol={'XDC'}
                         ></TokenInput>
                       </Grid>
                       <Grid item xs={12}>
-                        <p>1 HAUNTED = {hauntedPriceInPG} PG</p>
-                        <p>1 PG = {pgPriceInHAUNTED} HAUNTED</p>
+                        <p>1 HAUNTED = {hauntedPriceInXDC} XDC</p>
+                        <p>1 XDC = {xdcPriceInHAUNTED} HAUNTED</p>
                         <p>LP tokens ≈ {lpTokensAmount.toFixed(2)}</p>
                       </Grid>
                       <Grid xs={12} justifyContent="center" style={{ textAlign: 'center' }}>
                         {approveTaxOfficeStatus === ApprovalState.APPROVED ? (
                           <Button
                             variant="contained"
-                            onClick={() => onProvideHauntedFtmLP(pgAmount.toString(), hauntedAmount.toString())}
+                            onClick={() => onProvideHauntedFtmLP(xdcAmount.toString(), hauntedAmount.toString())}
                             color="primary"
                             style={{ margin: '0 10px', color: '#fff' }}
                           >

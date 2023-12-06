@@ -45,8 +45,8 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const TVL = useTotalValueLocked();
-  const hauntedFtmLpStats = useLpStats('HAUNTED-PG-LP');
-  const hShareFtmLpStats = useLpStats('HSHARE-PG-LP');
+  const hauntedFtmLpStats = useLpStats('HAUNTED-XDC-LP');
+  const hShareFtmLpStats = useLpStats('HSHARE-XDC-LP');
   const hauntedStats = useHauntedStats();
   const hShareStats = usehShareStats();
   const hBondStats = useBondStats();
@@ -62,8 +62,8 @@ const Home = () => {
     hShare = hShareProd;
   }
 
-  const buyHauntedAddress = 'https://exchange.pgswaps.com/#/swap?outputCurrency=' + haunted.address;
-  const buyHShareAddress = 'https://exchange.pgswaps.com/#/swap?outputCurrency=' + hShare.address;
+  const buyHauntedAddress = 'https://exchange.xdcswaps.com/#/swap?outputCurrency=' + haunted.address;
+  const buyHShareAddress = 'https://exchange.xdcswaps.com/#/swap?outputCurrency=' + hShare.address;
 
   const hauntedLPStats = useMemo(() => (hauntedFtmLpStats ? hauntedFtmLpStats : null), [hauntedFtmLpStats]);
   const hshareLPStats = useMemo(() => (hShareFtmLpStats ? hShareFtmLpStats : null), [hShareFtmLpStats]);
@@ -71,7 +71,7 @@ const Home = () => {
     () => (hauntedStats ? Number(hauntedStats.priceInDollars).toFixed(2) : null),
     [hauntedStats],
   );
-  const hauntedPriceInPG = useMemo(() => (hauntedStats ? Number(hauntedStats.tokenInFtm).toFixed(4) : null), [hauntedStats]);
+  const hauntedPriceInXDC = useMemo(() => (hauntedStats ? Number(hauntedStats.tokenInFtm).toFixed(4) : null), [hauntedStats]);
   const hauntedCirculatingSupply = useMemo(() => (hauntedStats ? String(hauntedStats.circulatingSupply) : null), [hauntedStats]);
   const hauntedTotalSupply = useMemo(() => (hauntedStats ? String(hauntedStats.totalSupply) : null), [hauntedStats]);
 
@@ -79,7 +79,7 @@ const Home = () => {
     () => (hShareStats ? Number(hShareStats.priceInDollars).toFixed(2) : null),
     [hShareStats],
   );
-  const hSharePriceInPG = useMemo(
+  const hSharePriceInXDC = useMemo(
     () => (hShareStats ? Number(hShareStats.tokenInFtm).toFixed(4) : null),
     [hShareStats],
   );
@@ -93,15 +93,15 @@ const Home = () => {
     () => (hBondStats ? Number(hBondStats.priceInDollars).toFixed(2) : null),
     [hBondStats],
   );
-  const hBondPriceInPG = useMemo(() => (hBondStats ? Number(hBondStats.tokenInFtm).toFixed(4) : null), [hBondStats]);
+  const hBondPriceInXDC = useMemo(() => (hBondStats ? Number(hBondStats.tokenInFtm).toFixed(4) : null), [hBondStats]);
   const hBondCirculatingSupply = useMemo(
     () => (hBondStats ? String(hBondStats.circulatingSupply) : null),
     [hBondStats],
   );
   const hBondTotalSupply = useMemo(() => (hBondStats ? String(hBondStats.totalSupply) : null), [hBondStats]);
 
-  const hauntedLpZap = useZap({ depositTokenName: 'HAUNTED-PG-LP' });
-  const hshareLpZap = useZap({ depositTokenName: 'HSHARE-PG-LP' });
+  const hauntedLpZap = useZap({ depositTokenName: 'HAUNTED-XDC-LP' });
+  const hshareLpZap = useZap({ depositTokenName: 'HSHARE-XDC-LP' });
 
   const StyledLink = styled.a`
     font-weight: 700;
@@ -116,7 +116,7 @@ const Home = () => {
         hauntedLpZap.onZap(zappingToken, tokenName, amount);
         onDissmissHauntedZap();
       }}
-      tokenName={'HAUNTED-PG-LP'}
+      tokenName={'HAUNTED-XDC-LP'}
     />,
   );
 
@@ -128,7 +128,7 @@ const Home = () => {
         hshareLpZap.onZap(zappingToken, tokenName, amount);
         onDissmissHshareZap();
       }}
-      tokenName={'HSHARE-PG-LP'}
+      tokenName={'HSHARE-XDC-LP'}
     />,
   );
 
@@ -146,9 +146,9 @@ const Home = () => {
           <Paper>
             <Box p={4}>
               <h2>Haunted Finance</h2>
-              <p>The first algorithmic stablecoin on PEGO Network, pegged to the price of 1 PG via seigniorage.</p>
+              <p>The first algorithmic stablecoin on XinFin Network, pegged to the price of 1 XDC via seigniorage.</p>
               <p>
-                Stake your HAUNTED-PG LP in the Farming to earn HSHARE rewards.
+                Stake your HAUNTED-XDC LP in the Farming to earn HSHARE rewards.
                 Then stake your earned HSHARE in the Staking to earn more HAUNTED!
               </p>
             </Box>
@@ -221,7 +221,7 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{hauntedPriceInPG ? hauntedPriceInPG : '1'} PG</span>
+                <span style={{ fontSize: '30px' }}>{hauntedPriceInXDC ? hauntedPriceInXDC : '1'} XDC</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px', alignContent: 'flex-start' }}>
@@ -260,7 +260,7 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{hSharePriceInPG ? hSharePriceInPG : '3333'} PG</span>
+                <span style={{ fontSize: '30px' }}>{hSharePriceInXDC ? hSharePriceInXDC : '3333'} XDC</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px' }}>${hSharePriceInDollars ? hSharePriceInDollars : '100'}</span>
@@ -297,7 +297,7 @@ const Home = () => {
               </Box>
               Current Price
               <Box>
-                <span style={{ fontSize: '30px' }}>{hBondPriceInPG ? hBondPriceInPG : '1.1'} PG</span>
+                <span style={{ fontSize: '30px' }}>{hBondPriceInXDC ? hBondPriceInXDC : '1.1'} XDC</span>
               </Box>
               <Box>
                 <span style={{ fontSize: '16px' }}>${hBondPriceInDollars ? hBondPriceInDollars : '0.035'}</span>

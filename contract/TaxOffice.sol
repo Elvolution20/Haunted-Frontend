@@ -590,7 +590,7 @@ contract TaxOffice is Operator {
     using SafeMath for uint256;
 
     address public haunted = address(0x6c021Ae822BEa943b2E66552bDe1D2696a53fbB7);
-    address public wpg = address(0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83);
+    address public wxdc = address(0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83);
     address public uniRouter = address(0xF491e7B69E4244ad4002BC14e878a34207E38c29);
 
     mapping(address => bool) public taxExclusionEnabled;
@@ -697,7 +697,7 @@ contract TaxOffice is Operator {
     function addLiquidityETHTaxFree(
         uint256 amtHaunted,
         uint256 amtHauntedMin,
-        uint256 amtPgMin
+        uint256 amtXdcMin
     )
         external
         payable
@@ -716,13 +716,13 @@ contract TaxOffice is Operator {
         _includeAddressInTax(msg.sender);
 
         uint256 resultAmtHaunted;
-        uint256 resultAmtPg;
+        uint256 resultAmtXdc;
         uint256 liquidity;
-        (resultAmtHaunted, resultAmtPg, liquidity) = IUniswapV2Router(uniRouter).addLiquidityETH{value: msg.value}(
+        (resultAmtHaunted, resultAmtXdc, liquidity) = IUniswapV2Router(uniRouter).addLiquidityETH{value: msg.value}(
             haunted,
             amtHaunted,
             amtHauntedMin,
-            amtPgMin,
+            amtXdcMin,
             msg.sender,
             block.timestamp
         );
@@ -730,7 +730,7 @@ contract TaxOffice is Operator {
         if(amtHaunted.sub(resultAmtHaunted) > 0) {
             IERC20(haunted).transfer(msg.sender, amtHaunted.sub(resultAmtHaunted));
         }
-        return (resultAmtHaunted, resultAmtPg, liquidity);
+        return (resultAmtHaunted, resultAmtXdc, liquidity);
     }
 
     function setTaxableHauntedOracle(address _hauntedOracle) external onlyOperator {

@@ -15,7 +15,7 @@ import useTokenBalance from '../../../hooks/useTokenBalance';
 import useHauntedFinance from '../../../hooks/useHauntedFinance';
 import { useWallet } from 'use-wallet';
 import useApproveZapper, { ApprovalState } from '../../../hooks/useApproveZapper';
-import { HAUNTED_TICKER, HSHARE_TICKER, PG_TICKER } from '../../../utils/constants';
+import { HAUNTED_TICKER, HSHARE_TICKER, XDC_TICKER } from '../../../utils/constants';
 import { Alert } from '@material-ui/lab';
 
 interface ZapProps extends ModalProps {
@@ -27,19 +27,19 @@ interface ZapProps extends ModalProps {
 const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', decimals = 18 }) => {
   const hauntedFinance = useHauntedFinance();
   const { balance } = useWallet();
-  const pgBalance = (Number(balance) / 1e18).toFixed(4).toString();
+  const xdcBalance = (Number(balance) / 1e18).toFixed(4).toString();
   const hauntedBalance = useTokenBalance(hauntedFinance.HAUNTED);
   const hshareBalance = useTokenBalance(hauntedFinance.HSHARE);
   const [val, setVal] = useState('');
-  const [zappingToken, setZappingToken] = useState(PG_TICKER);
-  const [zappingTokenBalance, setZappingTokenBalance] = useState(pgBalance);
-  const [estimate, setEstimate] = useState({ token0: '0', token1: '0' }); // token0 will always be PG in this case
+  const [zappingToken, setZappingToken] = useState(XDC_TICKER);
+  const [zappingTokenBalance, setZappingTokenBalance] = useState(xdcBalance);
+  const [estimate, setEstimate] = useState({ token0: '0', token1: '0' }); // token0 will always be XDC in this case
   const [approveZapperStatus, approveZapper] = useApproveZapper(zappingToken);
-  const hauntedFtmLpStats = useLpStats('HAUNTED-PG-LP');
-  const hShareFtmLpStats = useLpStats('HSHARE-PG-LP');
+  const hauntedFtmLpStats = useLpStats('HAUNTED-XDC-LP');
+  const hShareFtmLpStats = useLpStats('HSHARE-XDC-LP');
   const hauntedLPStats = useMemo(() => (hauntedFtmLpStats ? hauntedFtmLpStats : null), [hauntedFtmLpStats]);
   const hshareLPStats = useMemo(() => (hShareFtmLpStats ? hShareFtmLpStats : null), [hShareFtmLpStats]);
-  const pgAmountPerLP = tokenName.startsWith(HAUNTED_TICKER) ? hauntedLPStats?.pgAmount : hshareLPStats?.pgAmount;
+  const xdcAmountPerLP = tokenName.startsWith(HAUNTED_TICKER) ? hauntedLPStats?.xdcAmount : hshareLPStats?.xdcAmount;
   /**
    * Checks if a value is a valid number or not
    * @param n is the value to be evaluated for a number
@@ -51,7 +51,7 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
   const handleChangeAsset = (event: any) => {
     const value = event.target.value;
     setZappingToken(value);
-    setZappingTokenBalance(pgBalance);
+    setZappingTokenBalance(xdcBalance);
     if (event.target.value === HSHARE_TICKER) {
       setZappingTokenBalance(getDisplayBalance(hshareBalance, decimals));
     }
@@ -98,7 +98,7 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
         id="select"
         value={zappingToken}
       >
-        <StyledMenuItem value={PG_TICKER}>PG</StyledMenuItem>
+        <StyledMenuItem value={XDC_TICKER}>XDC</StyledMenuItem>
         <StyledMenuItem value={HSHARE_TICKER}>HSHARE</StyledMenuItem>
         {/* Haunted as an input for zapping will be disabled due to issues occuring with the Gatekeeper system */}
         {/* <StyledMenuItem value={HAUNTED_TICKER}>HAUNTED</StyledMenuItem> */}
@@ -113,11 +113,11 @@ const ZapModal: React.FC<ZapProps> = ({ onConfirm, onDismiss, tokenName = '', de
       <Label text="Zap Estimations" />
       <StyledDescriptionText>
         {' '}
-        {tokenName}: {Number(estimate.token0) / Number(pgAmountPerLP)}
+        {tokenName}: {Number(estimate.token0) / Number(xdcAmountPerLP)}
       </StyledDescriptionText>
       <StyledDescriptionText>
         {' '}
-        ({Number(estimate.token0)} {PG_TICKER} / {Number(estimate.token1)}{' '}
+        ({Number(estimate.token0)} {XDC_TICKER} / {Number(estimate.token1)}{' '}
         {tokenName.startsWith(HAUNTED_TICKER) ? HAUNTED_TICKER : HSHARE_TICKER}){' '}
       </StyledDescriptionText>
       <ModalActions>

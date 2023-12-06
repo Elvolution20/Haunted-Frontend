@@ -13,7 +13,7 @@ import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
 import config, { bankDefinitions } from '../config';
 import moment from 'moment';
 import { parseUnits } from 'ethers/lib/utils';
-import { PG_TICKER, SPOOKY_ROUTER_ADDR, HAUNTED_TICKER } from '../utils/constants';
+import { XDC_TICKER, SPOOKY_ROUTER_ADDR, HAUNTED_TICKER } from '../utils/constants';
 /**
  * An API module of Haunted Finance contracts.
  * All contract-interacting domain logic should be defined in here.
@@ -27,11 +27,11 @@ export class HauntedFinance {
   externalTokens: { [name: string]: ERC20 };
   stakingVersionOfUser?: string;
 
-  HAUNTEDWPG_LP: Contract;
+  HAUNTEDWXDC_LP: Contract;
   HAUNTED: ERC20;
   HSHARE: ERC20;
   HBOND: ERC20;
-  PG: ERC20;
+  XDC: ERC20;
 
   constructor(cfg: Configuration) {
     const { deployments, externalTokens } = cfg;
@@ -49,10 +49,10 @@ export class HauntedFinance {
     this.HAUNTED = new ERC20(deployments.haunted.address, provider, 'HAUNTED');
     this.HSHARE = new ERC20(deployments.hShare.address, provider, 'HSHARE');
     this.HBOND = new ERC20(deployments.hBond.address, provider, 'HBOND');
-    this.PG = this.externalTokens['WPG'];
+    this.XDC = this.externalTokens['WXDC'];
 
     // Uniswap V2 Pair
-    this.HAUNTEDWPG_LP = new Contract(externalTokens['HAUNTED-PG-LP'][0], IUniswapV2PairABI, provider);
+    this.HAUNTEDWXDC_LP = new Contract(externalTokens['HAUNTED-XDC-LP'][0], IUniswapV2PairABI, provider);
 
     this.config = cfg;
     this.provider = provider;
@@ -73,7 +73,7 @@ export class HauntedFinance {
     for (const token of tokens) {
       token.connect(this.signer);
     }
-    this.HAUNTEDWPG_LP = this.HAUNTEDWPG_LP.connect(this.signer);
+    this.HAUNTEDWXDC_LP = this.HAUNTEDWXDC_LP.connect(this.signer);
     console.log(`🔓 Wallet is unlocked. Welcome, ${account}!`);
     this.fetchStakingVersionOfUser()
       .then((version) => (this.stakingVersionOfUser = version))
@@ -103,12 +103,12 @@ export class HauntedFinance {
       .sub(hauntedRewardPoolSupply)
       .sub(hauntedRewardPoolSupply2)
       .sub(hauntedRewardPoolSupplyOld);
-    const priceInPG = await this.getTokenPriceFromPancakeswap(this.HAUNTED);
-    const priceOfOnePG = await this.getWPGPriceFromPancakeswap();
-    const priceOfHauntedInDollars = (Number(priceInPG) * Number(priceOfOnePG)).toFixed(2);
+    const priceInXDC = await this.getTokenPriceFromPancakeswap(this.HAUNTED);
+    const priceOfOneXDC = await this.getWXDCPriceFromPancakeswap();
+    const priceOfHauntedInDollars = (Number(priceInXDC) * Number(priceOfOneXDC)).toFixed(2);
 
     return {
-      tokenInFtm: priceInPG,
+      tokenInFtm: priceInXDC,
       priceInDollars: priceOfHauntedInDollars,
       totalSupply: getDisplayBalance(supply, this.HAUNTED.decimal, 0),
       circulatingSupply: getDisplayBalance(hauntedCirculatingSupply, this.HAUNTED.decimal, 0),
@@ -129,16 +129,16 @@ export class HauntedFinance {
     const tokenAmountBN = await token0.balanceOf(lpToken.address);
     const tokenAmount = getDisplayBalance(tokenAmountBN, 18);
 
-    const pgAmountBN = await this.PG.balanceOf(lpToken.address);
-    const pgAmount = getDisplayBalance(pgAmountBN, 18);
+    const xdcAmountBN = await this.XDC.balanceOf(lpToken.address);
+    const xdcAmount = getDisplayBalance(xdcAmountBN, 18);
     const tokenAmountInOneLP = Number(tokenAmount) / Number(lpTokenSupply);
-    const pgAmountInOneLP = Number(pgAmount) / Number(lpTokenSupply);
+    const xdcAmountInOneLP = Number(xdcAmount) / Number(lpTokenSupply);
     const lpTokenPrice = await this.getLPTokenPrice(lpToken, token0, isHaunted);
     const lpTokenPriceFixed = Number(lpTokenPrice).toFixed(2).toString();
     const liquidity = (Number(lpTokenSupply) * Number(lpTokenPrice)).toFixed(2).toString();
     return {
       tokenAmount: tokenAmountInOneLP.toFixed(2).toString(),
-      pgAmount: pgAmountInOneLP.toFixed(2).toString(),
+      xdcAmount: xdcAmountInOneLP.toFixed(2).toString(),
       priceOfOne: lpTokenPriceFixed,
       totalLiquidity: liquidity,
       totalSupply: Number(lpTokenSupply).toFixed(2).toString(),
@@ -148,7 +148,7 @@ export class HauntedFinance {
   /**
    * Use this method to get price for Haunted
    * @returns TokenStat for HBOND
-   * priceInPG
+   * priceInXDC
    * priceInDollars
    * TotalSupply
    * CirculatingSupply (always equal to total supply for bonds)
@@ -158,11 +158,11 @@ export class HauntedFinance {
     const hauntedStat = await this.getHauntedStat();
     const bondHauntedRatioBN = await Treasury.getBondPremiumRate();
     const modifier = bondHauntedRatioBN / 1e18 > 1 ? bondHauntedRatioBN / 1e18 : 1;
-    const bondPriceInPG = (Number(hauntedStat.tokenInFtm) * modifier).toFixed(2);
+    const bondPriceInXDC = (Number(hauntedStat.tokenInFtm) * modifier).toFixed(2);
     const priceOfHBondInDollars = (Number(hauntedStat.priceInDollars) * modifier).toFixed(2);
     const supply = await this.HBOND.displayedTotalSupply();
     return {
-      tokenInFtm: bondPriceInPG,
+      tokenInFtm: bondPriceInXDC,
       priceInDollars: priceOfHBondInDollars,
       totalSupply: supply,
       circulatingSupply: supply,
@@ -171,7 +171,7 @@ export class HauntedFinance {
 
   /**
    * @returns TokenStat for HSHARE
-   * priceInPG
+   * priceInXDC
    * priceInDollars
    * TotalSupply
    * CirculatingSupply (always equal to total supply for bonds)
@@ -181,14 +181,14 @@ export class HauntedFinance {
 
     const supply = await this.HSHARE.totalSupply();
 
-    const priceInPG = await this.getTokenPriceFromPancakeswap(this.HSHARE);
+    const priceInXDC = await this.getTokenPriceFromPancakeswap(this.HSHARE);
     const hauntedRewardPoolSupply = await this.HSHARE.balanceOf(HauntedFtmLPHShareRewardPool.address);
     const hShareCirculatingSupply = supply.sub(hauntedRewardPoolSupply);
-    const priceOfOnePG = await this.getWPGPriceFromPancakeswap();
-    const priceOfSharesInDollars = (Number(priceInPG) * Number(priceOfOnePG)).toFixed(2);
+    const priceOfOneXDC = await this.getWXDCPriceFromPancakeswap();
+    const priceOfSharesInDollars = (Number(priceInXDC) * Number(priceOfOneXDC)).toFixed(2);
 
     return {
-      tokenInFtm: priceInPG,
+      tokenInFtm: priceInXDC,
       priceInDollars: priceOfSharesInDollars,
       totalSupply: getDisplayBalance(supply, this.HSHARE.decimal, 0),
       circulatingSupply: getDisplayBalance(hShareCirculatingSupply, this.HSHARE.decimal, 0),
@@ -271,7 +271,7 @@ export class HauntedFinance {
     if (earnTokenName === 'HAUNTED') {
       if (!contractName.endsWith('HauntedRewardPool')) {
         const rewardPerSecond = await poolContract.hauntedPerSecond();
-        if (depositTokenName === 'WPG') {
+        if (depositTokenName === 'WXDC') {
           return rewardPerSecond.mul(6000).div(11000).div(24);
         } else if (depositTokenName === 'BOO') {
           return rewardPerSecond.mul(2500).div(11000).div(24);
@@ -308,13 +308,13 @@ export class HauntedFinance {
    */
   async getDepositTokenPriceInDollars(tokenName: string, token: ERC20) {
     let tokenPrice;
-    const priceOfOneFtmInDollars = await this.getWPGPriceFromPancakeswap();
-    if (tokenName === 'WPG') {
+    const priceOfOneFtmInDollars = await this.getWXDCPriceFromPancakeswap();
+    if (tokenName === 'WXDC') {
       tokenPrice = priceOfOneFtmInDollars;
     } else {
-      if (tokenName === 'HAUNTED-PG-LP') {
+      if (tokenName === 'HAUNTED-XDC-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.HAUNTED, true);
-      } else if (tokenName === 'HSHARE-PG-LP') {
+      } else if (tokenName === 'HSHARE-XDC-LP') {
         tokenPrice = await this.getLPTokenPrice(token, this.HSHARE, false);
       } else if (tokenName === 'SHIBA') {
         tokenPrice = await this.getTokenPriceFromSpiritswap(token);
@@ -384,7 +384,7 @@ export class HauntedFinance {
    * Calculates the price of an LP token
    * Reference https://github.com/DefiDebauchery/discordpricebot/blob/4da3cdb57016df108ad2d0bb0c91cd8dd5f9d834/pricebot/pricebot.py#L150
    * @param lpToken the token under calculation
-   * @param token the token pair used as reference (the other one would be PG in most cases)
+   * @param token the token pair used as reference (the other one would be XDC in most cases)
    * @param isHaunted sanity check for usage of haunted token or hShare
    * @returns price of the LP token
    */
@@ -489,13 +489,13 @@ export class HauntedFinance {
     const ready = await this.provider.ready;
     if (!ready) return;
     const { chainId } = this.config;
-    const { WPG } = this.config.externalTokens;
+    const { WXDC } = this.config.externalTokens;
 
-    const wpg = new Token(chainId, WPG[0], WPG[1]);
+    const wxdc = new Token(chainId, WXDC[0], WXDC[1]);
     const token = new Token(chainId, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
     try {
-      const wpgToToken = await Fetcher.fetchPairData(wpg, token, this.provider);
-      const priceInBUSD = new Route([wpgToToken], token);
+      const wxdcToToken = await Fetcher.fetchPairData(wxdc, token, this.provider);
+      const priceInBUSD = new Route([wxdcToToken], token);
 
       return priceInBUSD.midPrice.toFixed(4);
     } catch (err) {
@@ -508,38 +508,38 @@ export class HauntedFinance {
     if (!ready) return;
     const { chainId } = this.config;
 
-    const { WPG } = this.externalTokens;
+    const { WXDC } = this.externalTokens;
 
-    const wpg = new TokenSpirit(chainId, WPG.address, WPG.decimal);
+    const wxdc = new TokenSpirit(chainId, WXDC.address, WXDC.decimal);
     const token = new TokenSpirit(chainId, tokenContract.address, tokenContract.decimal, tokenContract.symbol);
     try {
-      const wpgToToken = await FetcherSpirit.fetchPairData(wpg, token, this.provider);
-      const liquidityToken = wpgToToken.liquidityToken;
-      let pgBalanceInLP = await WPG.balanceOf(liquidityToken.address);
-      let pgAmount = Number(getFullDisplayBalance(pgBalanceInLP, WPG.decimal));
+      const wxdcToToken = await FetcherSpirit.fetchPairData(wxdc, token, this.provider);
+      const liquidityToken = wxdcToToken.liquidityToken;
+      let xdcBalanceInLP = await WXDC.balanceOf(liquidityToken.address);
+      let xdcAmount = Number(getFullDisplayBalance(xdcBalanceInLP, WXDC.decimal));
       let shibaBalanceInLP = await tokenContract.balanceOf(liquidityToken.address);
       let shibaAmount = Number(getFullDisplayBalance(shibaBalanceInLP, tokenContract.decimal));
-      const priceOfOneFtmInDollars = await this.getWPGPriceFromPancakeswap();
-      let priceOfShiba = (pgAmount / shibaAmount) * Number(priceOfOneFtmInDollars);
+      const priceOfOneFtmInDollars = await this.getWXDCPriceFromPancakeswap();
+      let priceOfShiba = (xdcAmount / shibaAmount) * Number(priceOfOneFtmInDollars);
       return priceOfShiba.toString();
     } catch (err) {
       console.error(`Failed to fetch token price of ${tokenContract.symbol}: ${err}`);
     }
   }
 
-  async getWPGPriceFromPancakeswap(): Promise<string> {
+  async getWXDCPriceFromPancakeswap(): Promise<string> {
     const ready = await this.provider.ready;
     if (!ready) return;
-    const { WPG, FUSDT } = this.externalTokens;
+    const { WXDC, FUSDT } = this.externalTokens;
     try {
-      const fusdt_wpg_lp_pair = this.externalTokens['USDT-PG-LP'];
-      let pg_amount_BN = await WPG.balanceOf(fusdt_wpg_lp_pair.address);
-      let pg_amount = Number(getFullDisplayBalance(pg_amount_BN, WPG.decimal));
-      let fusdt_amount_BN = await FUSDT.balanceOf(fusdt_wpg_lp_pair.address);
+      const fusdt_wxdc_lp_pair = this.externalTokens['USDT-XDC-LP'];
+      let xdc_amount_BN = await WXDC.balanceOf(fusdt_wxdc_lp_pair.address);
+      let xdc_amount = Number(getFullDisplayBalance(xdc_amount_BN, WXDC.decimal));
+      let fusdt_amount_BN = await FUSDT.balanceOf(fusdt_wxdc_lp_pair.address);
       let fusdt_amount = Number(getFullDisplayBalance(fusdt_amount_BN, FUSDT.decimal));
-      return (fusdt_amount / pg_amount).toString();
+      return (fusdt_amount / xdc_amount).toString();
     } catch (err) {
-      console.error(`Failed to fetch token price of WPG: ${err}`);
+      console.error(`Failed to fetch token price of WXDC: ${err}`);
     }
   }
 
@@ -748,17 +748,17 @@ export class HauntedFinance {
     return true;
   }
 
-  async provideHauntedFtmLP(pgAmount: string, hauntedAmount: BigNumber): Promise<TransactionResponse> {
+  async provideHauntedFtmLP(xdcAmount: string, hauntedAmount: BigNumber): Promise<TransactionResponse> {
     const { TaxOffice } = this.contracts;
     let overrides = {
-      value: parseUnits(pgAmount, 18),
+      value: parseUnits(xdcAmount, 18),
     };
-    return await TaxOffice.addLiquidityETHTaxFree(hauntedAmount, hauntedAmount.mul(992).div(1000), parseUnits(pgAmount, 18).mul(992).div(1000), overrides);
+    return await TaxOffice.addLiquidityETHTaxFree(hauntedAmount, hauntedAmount.mul(992).div(1000), parseUnits(xdcAmount, 18).mul(992).div(1000), overrides);
   }
 
   async quoteFromSpooky(tokenAmount: string, tokenName: string): Promise<string> {
     const { SpookyRouter } = this.contracts;
-    const { _reserve0, _reserve1 } = await this.HAUNTEDWPG_LP.getReserves();
+    const { _reserve0, _reserve1 } = await this.HAUNTEDWXDC_LP.getReserves();
     let quote;
     if (tokenName === 'HAUNTED') {
       quote = await SpookyRouter.quote(parseUnits(tokenAmount), _reserve1, _reserve0);
@@ -845,7 +845,7 @@ export class HauntedFinance {
     const { zapper } = this.contracts;
     const lpToken = this.externalTokens[lpName];
     let estimate;
-    if (tokenName === PG_TICKER) {
+    if (tokenName === XDC_TICKER) {
       estimate = await zapper.estimateZapIn(lpToken.address, SPOOKY_ROUTER_ADDR, parseUnits(amount, 18));
     } else {
       const token = tokenName === HAUNTED_TICKER ? this.HAUNTED : this.HSHARE;
@@ -861,7 +861,7 @@ export class HauntedFinance {
   async zapIn(tokenName: string, lpName: string, amount: string): Promise<TransactionResponse> {
     const { zapper } = this.contracts;
     const lpToken = this.externalTokens[lpName];
-    if (tokenName === PG_TICKER) {
+    if (tokenName === XDC_TICKER) {
       let overrides = {
         value: parseUnits(amount, 18),
       };

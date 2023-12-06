@@ -940,7 +940,7 @@ contract Haunted is ERC20Burnable, Operator {
 
     // Initial distribution for the first 24h genesis pools
     uint256 public constant INITIAL_GENESIS_POOL_DISTRIBUTION = 11000 ether;
-    // Initial distribution for the day 2-5 HAUNTED-WPG LP -> HAUNTED pool
+    // Initial distribution for the day 2-5 HAUNTED-WXDC LP -> HAUNTED pool
     uint256 public constant INITIAL_HAUNTED_POOL_DISTRIBUTION = 50000 ether;
     // Distribution for airdrops wallet
     uint256 public constant INITIAL_AIRDROP_WALLET_DISTRIBUTION = 9000 ether;
